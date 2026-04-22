@@ -1,0 +1,11 @@
+{
+  "name": "alex-core-invariants",
+  "version": "1.0.0",
+  "description": "Canonical six invariants for AI-assisted engineering: README SSOT, skill guidance, and lightweight checks.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "check": "node checks/validate-readme.mjs && node checks/validate-skill.mjs",
+    "scan": "node checks/policy-scan.mjs"
+  }
+}
