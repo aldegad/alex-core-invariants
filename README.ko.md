@@ -5,7 +5,7 @@
 
 **Languages**: [English](README.md) · 한국어
 
-# 알렉스 코어 불변 규칙
+# 알렉스의 6원칙
 
 > **번역본 안내**: 이 파일은 `README.md` (영문) 의 derived artifact 입니다. 정책 해석이 엇갈릴 경우 영문판이 canonical 입니다.
 
@@ -13,7 +13,7 @@
 
 > 모델이 바뀌어도, 프레임워크가 바뀌어도, 튜닝 어댑터가 폐기돼도 살아남아야 하는 것. 6개다.
 
-## 여섯 가지 불변 규칙
+## 6가지 원칙
 
 1. `SSoT (Single Source of Truth)` — **진실이 둘이면, 어느 모델로 읽어도 둘이다.**  
    시스템이 의존하는 모든 진실은 단 하나의 canonical 소유자를 가져야 한다. 동시에 존재하는 두 개의 canonical 경로는 허용되지 않는다. 캐시나 인덱스 상태가 어긋나면, 두 번째 진실을 만드는 대신 live truth 로부터 canonical 상태를 복구해야 한다.
@@ -41,7 +41,7 @@
 
 ## 이 저장소에 대하여
 
-`alex-core-invariants` 는 AI 보조 엔지니어링을 위한 소규모 canonical 정책 저장소다. 핵심은 간단하다. 불변 규칙 텍스트를 한 곳에 두고, 다른 repo 에서는 링크로만 참조하며, 정책 자체가 표류하지 않도록 한다.
+`alex-core-invariants` 는 AI 보조 엔지니어링을 위한 소규모 canonical 정책 저장소다. 핵심은 간단하다. 원칙 텍스트를 한 곳에 두고, 다른 repo 에서는 링크로만 참조하며, 정책 자체가 표류하지 않도록 한다.
 
 ## 저장소 구조
 
@@ -62,7 +62,7 @@ npm run check
 node checks/policy-scan.mjs ../some-repo
 ```
 
-`npm run check` 는 이 repo 자체와 한국어 번역본의 sync 상태를 검증한다. `policy-scan` 은 다른 코드베이스에서 불변 규칙 위반 가능성을 찾는 경량 휴리스틱 스캔이다. 리뷰 후보를 드러내는 용도이며 엔지니어링 판단을 대체하지 않는다.
+`npm run check` 는 이 repo 자체와 한국어 번역본의 sync 상태를 검증한다. `policy-scan` 은 다른 코드베이스에서 원칙 위반 가능성을 찾는 경량 휴리스틱 스캔이다. 리뷰 후보를 드러내는 용도이며 엔지니어링 판단을 대체하지 않는다.
 
 pre-commit 훅 활성화 (최초 1회):
 
@@ -81,7 +81,7 @@ npm run translate
 ## 설계 원칙
 
 - `README.md` 가 이 repo 에서 유일한 canonical 정책 정의다.
-- `README.ko.md` 는 두 번째 소스가 아니라 derived artifact 다. `source-sha` 헤더가 특정 `README.md` 리비전에 고정하고, pre-commit 훅이 표류를 차단한다. 이 구조가 정책 텍스트 자체에 대해 SSoT 불변 규칙을 유지한다.
+- `README.ko.md` 는 두 번째 소스가 아니라 derived artifact 다. `source-sha` 헤더가 특정 `README.md` 리비전에 고정하고, pre-commit 훅이 표류를 차단한다. 이 구조가 정책 텍스트 자체에 대해 SSoT 원칙을 유지한다.
 - `SKILL.md` 는 동작을 안내할 뿐, 정책 전체의 두 번째 복제본이 되면 안 된다.
 - 체크는 얕고 의견 있는 상태로 유지한다. 이 repo 는 프레임워크가 아니다.
 
