@@ -4,11 +4,13 @@
 
 This must be obeyed.
 
-> Even when the model swaps, even when the framework is rewritten, even when you throw the tuning adapter away — six invariants do not move.
+> A good harness does not worship the model. It observes failure, swaps the adapter, preserves the core's truth.
+>
+> The model changes. The adapter is thrown away. The core remains. That core holds six invariants that do not move — not through a model swap, not through a framework rewrite, not through an adapter you ship and throw away.
 >
 > SSoT · SRP · Consistency · Atomicity · Idempotency · No Silent Fallback
 >
-> Every harness splits into a thin **core** and a thin **adapter**. Adapters are disposable. The core is not. This repo is about the core only — the structural failures no adapter can paper over.
+> This repo is about the core only — the structural failures no adapter can paper over.
 
 ## The Six Invariants
 
