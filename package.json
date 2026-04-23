@@ -5,7 +5,9 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "check": "node checks/validate-readme.mjs && node checks/validate-skill.mjs",
-    "scan": "node checks/policy-scan.mjs"
+    "check": "node checks/validate-readme.mjs && node checks/validate-skill.mjs && node checks/validate-readme-ko-sync.mjs",
+    "scan": "node checks/policy-scan.mjs",
+    "translate": "node scripts/stamp-ko.mjs",
+    "setup": "git config core.hooksPath .githooks"
   }
 }

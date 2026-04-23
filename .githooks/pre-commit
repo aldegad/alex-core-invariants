@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+# Run the repo's canonical checks before allowing a commit.
+# Includes README.ko.md sync verification (source-sha match vs README.md).
+npm run check
