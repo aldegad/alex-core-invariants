@@ -1,10 +1,14 @@
 **Languages**: English · [한국어](README.ko.md)
 
-# Alex Core Invariants
+# Alex's Six Invariants
 
 This must be obeyed.
 
-> Six things that must survive every model swap, framework rewrite, and adapter you ship and throw away.
+> Even when the model swaps, even when the framework is rewritten, even when you throw the tuning adapter away — six invariants do not move.
+>
+> SSoT · SRP · Consistency · Atomicity · Idempotency · No Silent Fallback
+>
+> Every harness splits into a thin **core** and a thin **adapter**. Adapters are disposable. The core is not. This repo is about the core only — the structural failures no adapter can paper over.
 
 ## The Six Invariants
 
@@ -28,9 +32,11 @@ This must be obeyed.
 
 ## Why these six
 
-Every harness eventually splits into two layers: a thin **core** that must survive model swaps and framework churn, and a thin **adapter** that patches whatever this month's model gets wrong. Adapters are disposable. The core is not.
+Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, half-written state — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
 
-These six are the core. They describe failure modes no adapter can paper over — if you get one wrong, no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
+The core/adapter split is also what makes aggressive adapter work safe. You can tune the adapter hard for this month's model precisely because the core underneath does not move. Invert the assumption — let the core drift to accommodate model quirks — and the adapter loses its anchor. The harness starts absorbing problems it was supposed to route around.
+
+Every debate about longevity ("build for next year's model") versus efficiency ("squeeze this month's model dry") dissolves under this split. Longevity lives in the core. Efficiency lives in the adapter. Forcing one layer to do both jobs is how harnesses rot.
 
 ## About this repo
 

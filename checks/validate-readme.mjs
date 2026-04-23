@@ -7,7 +7,7 @@ const root = path.resolve(here, "..");
 const readme = await fs.readFile(path.join(root, "README.md"), "utf8");
 
 const requiredPatterns = [
-  /^# Alex Core Invariants$/m,
+  /^# Alex's Six Invariants$/m,
   /^This must be obeyed\.$/m,
   /^1\. `SSoT \(Single Source of Truth\)`/m,
   /^2\. `SRP \(Single Responsibility Principle\)`/m,
