@@ -1,0 +1,4 @@
+interface:
+  display_name: "Alex Core Invariants"
+  short_description: "Review work against the six core invariants."
+  default_prompt: "Review this code or plan against Alex's six invariants and report the smallest structural fixes."
