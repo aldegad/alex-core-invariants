@@ -1,6 +1,6 @@
 ---
 name: alex-core-invariants
-description: Use when reviewing architecture, refactors, state/data ownership, failure handling, or policy drift against Alex's six invariants: SSoT, SRP, consistency, atomicity, idempotency, and no silent fallback.
+description: "Use when reviewing architecture, refactors, state/data ownership, failure handling, or policy drift against Alex's six invariants: SSoT, SoC/SRP, consistency, atomicity, idempotency, and no silent fallback."
 ---
 
 # Alex Core Invariants Skill

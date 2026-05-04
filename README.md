@@ -8,7 +8,7 @@ This must be obeyed.
 >
 > The model changes. The adapter is thrown away. The core remains. That core holds six invariants that do not move — not through a model swap, not through a framework rewrite, not through an adapter you ship and throw away.
 >
-> SSoT · SRP · Consistency · Atomicity · Idempotency · No Silent Fallback
+> SSoT · SoC/SRP · Consistency · Atomicity · Idempotency · No Silent Fallback
 >
 > This repo is about the core only — the structural failures no adapter can paper over.
 
@@ -17,8 +17,8 @@ This must be obeyed.
 1. `SSoT (Single Source of Truth)` — **Two truths stay two truths, no matter which model reads them.**  
    Every truth the system depends on must have one canonical owner. Two concurrent canonical paths are not allowed. If cache or index state drifts, live truth should repair canonical state instead of creating a second truth.
 
-2. `SRP (Single Responsibility Principle)` — **Mixed responsibility survives every refactor until nothing can be changed without breaking something else.**  
-   A module, file, function, or route should have one job.
+2. `SoC / SRP (Separation of Concerns / Single Responsibility)` — **Mixed responsibility survives every refactor until nothing can be changed without breaking something else.**  
+   Different concerns belong in separate boundaries — architecture and domain level (SoC), module, file, and function level (SRP). When one boundary carries two concerns, split it.
 
 3. `Consistency` — **Contradictions don't heal with time. They compound.**  
    Data, state, and representation should not contradict each other across the system.

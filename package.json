@@ -1,6 +1,6 @@
 {
   "name": "alex-core-invariants",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Canonical six invariants for AI-assisted engineering: README SSOT, skill guidance, and lightweight checks.",
   "type": "module",
   "license": "MIT",

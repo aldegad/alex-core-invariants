@@ -10,7 +10,7 @@ const requiredPatterns = [
   /^# Alex's Six Invariants$/m,
   /^This must be obeyed\.$/m,
   /^1\. `SSoT \(Single Source of Truth\)`/m,
-  /^2\. `SRP \(Single Responsibility Principle\)`/m,
+  /^2\. `SoC \/ SRP \(Separation of Concerns \/ Single Responsibility\)`/m,
   /^3\. `Consistency`/m,
   /^4\. `Atomicity`/m,
   /^5\. `Idempotency`/m,
