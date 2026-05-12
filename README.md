@@ -1,18 +1,20 @@
 **Languages**: English · [한국어](README.ko.md)
 
-# Alex's Six Invariants
+# Alex's Seven Invariants
 
 This must be obeyed.
 
 > A good harness does not worship the model. It observes failure, swaps the adapter, preserves the core's truth.
 >
-> The model changes. The adapter is thrown away. The core remains. That core holds six invariants that do not move — not through a model swap, not through a framework rewrite, not through an adapter you ship and throw away.
+> The model changes. The adapter is thrown away. The core remains. That core holds seven invariants that do not move — not through a model swap, not through a framework rewrite, not through an adapter you ship and throw away.
 >
-> SSoT · SoC/SRP · Consistency · Atomicity · Idempotency · No Silent Fallback
+> SSoT · SoC/SRP · Consistency · Atomicity · Idempotency · No Silent Fallback · Doc-first & Plan-first
 >
-> This repo is about the core only — the structural failures no adapter can paper over.
+> Six invariants govern the system you ship. The seventh governs the engineer (human or agent) shipping it — what they read and what they write down before work begins. Both are core.
+>
+> This repo is about that core only — the structural failures no adapter can paper over.
 
-## The Six Invariants
+## The Seven Invariants
 
 1. `SSoT (Single Source of Truth)` — **Two truths stay two truths, no matter which model reads them.**  
    Every truth the system depends on must have one canonical owner. Two concurrent canonical paths are not allowed. If cache or index state drifts, live truth should repair canonical state instead of creating a second truth.
@@ -32,9 +34,12 @@ This must be obeyed.
 6. `No Silent Fallback` — **A silent fallback is the moment the core stops being the core.**  
    `fallback`, `legacy`, and `shadow path` patterns are not allowed when they silently hide failure or create a second truth. Explicit failover for availability is allowed, but it must be observable and must not change canonical truth.
 
-## Why these six
+7. `Doc-first & Plan-first` — **The hour you spend guessing is the minute you refused to read. The week you spend rebuilding is the half-hour you refused to plan.**  
+   Two things come before the work, not after. (a) **Doc-first**: standardized domains (Cloudflare, HTTP encoding, OAuth, browser APIs, AWS/GCP, Kubernetes, build toolchains, etc.) have answers that already live inside one page of official documentation. On a problem in such a domain, the first action is searching the official docs, not dispatching a hypothesis to a worker (or a human). Hypothesis-first work is justified only when the question lives in our own code, our domain rules, or an edge the docs do not cover. (b) **Plan-first**: any non-trivial work goes into a written plan before the first commit. The plan's phases are what trigger doc-first at the right entry points, what give a sequence to recover when something breaks, and what stop ad-hoc fix → commit → deploy spirals. Skipping the plan is justified only on truly trivial one-step work. Twenty years of human engineering — and now AI agents — keep losing one to three hours per problem to the same two skipped steps: Stack Overflow first, docs never; ad-hoc fix first, plan never. This invariant exists because that pattern is structural, not personal.
 
-Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, half-written state — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
+## Why these seven
+
+Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, half-written state, time burned on guess work — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
 
 The core/adapter split is also what makes aggressive adapter work safe. You can tune the adapter hard for this month's model precisely because the core underneath does not move. Invert the assumption — let the core drift to accommodate model quirks — and the adapter loses its anchor. The harness starts absorbing problems it was supposed to route around.
 

@@ -7,14 +7,15 @@ const root = path.resolve(here, "..");
 const readme = await fs.readFile(path.join(root, "README.md"), "utf8");
 
 const requiredPatterns = [
-  /^# Alex's Six Invariants$/m,
+  /^# Alex's Seven Invariants$/m,
   /^This must be obeyed\.$/m,
   /^1\. `SSoT \(Single Source of Truth\)`/m,
   /^2\. `SoC \/ SRP \(Separation of Concerns \/ Single Responsibility\)`/m,
   /^3\. `Consistency`/m,
   /^4\. `Atomicity`/m,
   /^5\. `Idempotency`/m,
-  /^6\. `No Silent Fallback`/m
+  /^6\. `No Silent Fallback`/m,
+  /^7\. `Doc-first & Plan-first`/m
 ];
 
 const missing = requiredPatterns.filter((pattern) => !pattern.test(readme));
@@ -25,8 +26,8 @@ if (missing.length > 0) {
 }
 
 const numberedCount = [...readme.matchAll(/^\d+\.\s/mg)].length;
-if (numberedCount !== 6) {
-  console.error(`README.md should expose exactly 6 numbered invariants, found ${numberedCount}.`);
+if (numberedCount !== 7) {
+  console.error(`README.md should expose exactly 7 numbered invariants, found ${numberedCount}.`);
   process.exit(1);
 }
 
