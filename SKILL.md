@@ -1,6 +1,6 @@
 ---
 name: alex-core-invariants
-description: "Use when reviewing architecture, refactors, state/data ownership, failure handling, debug discipline, work-in-progress hygiene, or policy drift against Alex's seven invariants: SSoT, SoC/SRP, consistency, atomicity, idempotency, no silent fallback, and doc-first & plan-first."
+description: "Use when reviewing architecture, refactors, state/data ownership, failure handling, debug discipline, work-in-progress hygiene, concurrency policy, or persistence/durability posture against Alex's eight invariants (plus one conditional): SSoT, SoC/SRP, consistency, atomicity, idempotency, no silent fallback, doc-first & plan-first, isolation, and — when the system owns persistent state of value — durability."
 ---
 
 # Alex Core Invariants Skill
