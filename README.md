@@ -1,5 +1,13 @@
 **Languages**: English · [한국어](README.ko.md)
 
+<p align="center">
+  <img src="assets/alex-core-invariants.png" alt="Alex Core Invariants" width="520">
+</p>
+
+<p align="center">
+  <strong>v2.1.0</strong> · Eight fixed invariants for AI-assisted engineering
+</p>
+
 # Alex's Eight Invariants
 
 This must be obeyed.
@@ -10,7 +18,7 @@ This must be obeyed.
 >
 > SSoT · SoC/SRP · Consistency · Atomicity · Idempotency · No Silent Fallback · Doc-first & Plan-first · Isolation
 >
-> Six invariants govern the system you ship. The seventh governs the engineer (human or agent) shipping it — what they read and what they write down before work begins. The eighth governs what happens when two requests race past the first seven at the same instant.
+> All eight govern the system and the work of shipping it. They protect structural truth, disciplined work entry, and shared mutable boundaries when two actors move at the same time.
 >
 > This repo is about that core only — the structural failures no adapter can paper over.
 
@@ -37,12 +45,12 @@ This must be obeyed.
 7. `Doc-first & Plan-first` — **The hour you spend guessing is the minute you refused to read. The week you spend rebuilding is the half-hour you refused to plan.**  
    Two things come before the work, not after. (a) **Doc-first**: standardized domains (Cloudflare, HTTP encoding, OAuth, browser APIs, AWS/GCP, Kubernetes, build toolchains, etc.) have answers that already live inside one page of official documentation. On a problem in such a domain, the first action is searching the official docs, not dispatching a hypothesis to a worker (or a human). Hypothesis-first work is justified only when the question lives in our own code, our domain rules, or an edge the docs do not cover. (b) **Plan-first**: any non-trivial work goes into a written plan before the first commit. The plan's phases are what trigger doc-first at the right entry points, what give a sequence to recover when something breaks, and what stop ad-hoc fix → commit → deploy spirals. Skipping the plan is justified only on truly trivial one-step work. Twenty years of human engineering — and now AI agents — keep losing one to three hours per problem to the same two skipped steps: Stack Overflow first, docs never; ad-hoc fix first, plan never. This invariant exists because that pattern is structural, not personal.
 
-8. `Isolation` — **The database engine handles two requests at once. It does not handle your read-modify-write.**  
-   Application-level concurrency must be made explicit. The DB engine's default isolation (e.g. Postgres `READ COMMITTED`) is not enough on its own. Read-modify-write counters, limit-check-then-insert, chained writes across rows, hash chains keyed on "the latest row," and shared in-memory caches across worker processes all need a *named* strategy: atomic SQL update (`UPDATE ... SET col = col + 1`), `SELECT ... FOR UPDATE`, advisory lock, `SERIALIZABLE` transaction, or an external coordinator. "The framework handles it" is not a strategy. Skipping this invariant is the failure mode that AI review keeps missing because the model assumes the engine's default is the policy.
+8. `Isolation` — **Concurrency is a design surface, not a backend detail.**
+   Any shared mutable state that can be touched by two actors at once needs an explicit isolation policy. This includes database rows, files, queues, object manifests, caches, in-memory maps, session state, agent runtime state, and UI/server mutation paths. Read-modify-write counters, limit-check-then-insert flows, chained writes, "latest row" hash chains, multi-worker caches, and two agents editing the same truth all need a *named* strategy: atomic operation, single-writer queue, actor/Durable Object, file lock, lease, idempotency key plus unique constraint, `SELECT ... FOR UPDATE`, advisory lock, `SERIALIZABLE` transaction, or an external coordinator. A database default such as Postgres `READ COMMITTED` is only one example of a lower-level mechanism; it is not the application policy. "The framework handles it" is not a strategy. Skipping this invariant is the failure mode AI review keeps missing because the model assumes a platform default is the boundary.
 
 ## Why these eight
 
-Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, half-written state, time burned on guess work, two requests racing past the framework's defaults — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
+Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, contradictory representation, half-written state, retry damage, hidden fallback, time burned on guess work, and shared state races — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
 
 The core/adapter split is also what makes aggressive adapter work safe. You can tune the adapter hard for this month's model precisely because the core underneath does not move. Invert the assumption — let the core drift to accommodate model quirks — and the adapter loses its anchor. The harness starts absorbing problems it was supposed to route around.
 

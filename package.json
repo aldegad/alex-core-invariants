@@ -1,7 +1,7 @@
 {
   "name": "alex-core-invariants",
-  "version": "2.0.0",
-  "description": "Canonical eight invariants for AI-assisted engineering: README SSOT, skill guidance, and lightweight checks.",
+  "version": "2.1.0",
+  "description": "Canonical eight fixed invariants for AI-assisted engineering.",
   "type": "module",
   "license": "MIT",
   "scripts": {
