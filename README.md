@@ -1,11 +1,11 @@
 **Languages**: English · [한국어](README.ko.md)
 
 <p align="center">
-  <img src="assets/alex-core-invariants.png" alt="Alex Core Invariants" width="520">
+  <img src="assets/sukuma.png" alt="Sukuma" width="160">
 </p>
 
 <p align="center">
-  <strong>v2.1.0</strong> · Eight fixed invariants for AI-assisted engineering
+  <strong>v2.1.1</strong> · Eight fixed invariants for AI-assisted engineering
 </p>
 
 # Alex's Eight Invariants

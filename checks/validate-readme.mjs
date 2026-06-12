@@ -7,8 +7,8 @@ const root = path.resolve(here, "..");
 const readme = await fs.readFile(path.join(root, "README.md"), "utf8");
 
 const requiredPatterns = [
-  /<img src="assets\/alex-core-invariants\.png" alt="Alex Core Invariants" width="520">/u,
-  /<strong>v2\.1\.0<\/strong> · Eight fixed invariants for AI-assisted engineering/u,
+  /<img src="assets\/sukuma\.png" alt="Sukuma" width="160">/u,
+  /<strong>v2\.1\.1<\/strong> · Eight fixed invariants for AI-assisted engineering/u,
   /^# Alex's Eight Invariants$/m,
   /^This must be obeyed\.$/m,
   /^1\. `SSoT \(Single Source of Truth\)`/m,
