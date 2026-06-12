@@ -1,6 +1,6 @@
 **Languages**: English · [한국어](README.ko.md)
 
-# Alex's Eight Invariants (+ One Conditional)
+# Alex's Eight Invariants
 
 This must be obeyed.
 
@@ -8,13 +8,13 @@ This must be obeyed.
 >
 > The model changes. The adapter is thrown away. The core remains. That core holds invariants that do not move — not through a model swap, not through a framework rewrite, not through an adapter you ship and throw away.
 >
-> SSoT · SoC/SRP · Consistency · Atomicity · Idempotency · No Silent Fallback · Doc-first & Plan-first · Isolation · *(Durability — conditional)*
+> SSoT · SoC/SRP · Consistency · Atomicity · Idempotency · No Silent Fallback · Doc-first & Plan-first · Isolation
 >
-> Six invariants govern the system you ship. The seventh governs the engineer (human or agent) shipping it — what they read and what they write down before work begins. The eighth governs what happens when two requests race past the first seven at the same instant. The ninth, used only when the system owns persistent state of value, governs what survives a crash, a failed commit, or a lost key.
+> Six invariants govern the system you ship. The seventh governs the engineer (human or agent) shipping it — what they read and what they write down before work begins. The eighth governs what happens when two requests race past the first seven at the same instant.
 >
 > This repo is about that core only — the structural failures no adapter can paper over.
 
-## The Eight Invariants (+ Conditional Ninth)
+## The Eight Invariants
 
 1. `SSoT (Single Source of Truth)` — **Two truths stay two truths, no matter which model reads them.**  
    Every truth the system depends on must have one canonical owner. Two concurrent canonical paths are not allowed. If cache or index state drifts, live truth should repair canonical state instead of creating a second truth.
@@ -40,12 +40,9 @@ This must be obeyed.
 8. `Isolation` — **The database engine handles two requests at once. It does not handle your read-modify-write.**  
    Application-level concurrency must be made explicit. The DB engine's default isolation (e.g. Postgres `READ COMMITTED`) is not enough on its own. Read-modify-write counters, limit-check-then-insert, chained writes across rows, hash chains keyed on "the latest row," and shared in-memory caches across worker processes all need a *named* strategy: atomic SQL update (`UPDATE ... SET col = col + 1`), `SELECT ... FOR UPDATE`, advisory lock, `SERIALIZABLE` transaction, or an external coordinator. "The framework handles it" is not a strategy. Skipping this invariant is the failure mode that AI review keeps missing because the model assumes the engine's default is the policy.
 
-9. *(Conditional)* `Durability` — **A row that lives in the database but cannot be read is data loss with extra steps.**  
-   When the system owns persistent state that is itself an asset — DB rows, audit chains, secrets, sealed roots, customer files, settlement records — durability is a first-class concern. Required posture: (a) audit and log entries survive even when the originating mutation rolls back (outbox or a separate transaction); (b) sealed roots (master keys, signing keys, KMS unwrap secrets) have an explicit escrow, backup, and rotation policy — losing them must not mean *de facto* data loss; (c) backups have a defined schedule and restore drill, not just a mounted directory; (d) storage choices for large payloads weigh WAL and backup cost against object-store separation. Skip this invariant only for systems that hold no durable state of value — pure front-ends, stateless transforms, ephemeral compute. For everything else, name the durability strategy.
+## Why these eight
 
-## Why these (8 + 1)
-
-Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, half-written state, time burned on guess work, two requests racing past the framework's defaults, a master key that no one ever escrowed — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
+Each invariant names a failure mode the adapter cannot route around. Cache drift, mixed responsibility, half-written state, time burned on guess work, two requests racing past the framework's defaults — get one wrong and no amount of prompt tuning, retry logic, or model upgrade will save you. The failure is structural.
 
 The core/adapter split is also what makes aggressive adapter work safe. You can tune the adapter hard for this month's model precisely because the core underneath does not move. Invert the assumption — let the core drift to accommodate model quirks — and the adapter loses its anchor. The harness starts absorbing problems it was supposed to route around.
 

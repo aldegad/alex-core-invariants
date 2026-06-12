@@ -1,6 +1,6 @@
 ---
 name: alex-core-invariants
-description: "Use when reviewing architecture, refactors, state/data ownership, failure handling, debug discipline, work-in-progress hygiene, concurrency policy, or persistence/durability posture against Alex's eight invariants (plus one conditional): SSoT, SoC/SRP, consistency, atomicity, idempotency, no silent fallback, doc-first & plan-first, isolation, and — when the system owns persistent state of value — durability."
+description: "Use when reviewing architecture, refactors, state/data ownership, failure handling, debug discipline, work-in-progress hygiene, or concurrency policy against Alex's eight invariants: SSoT, SoC/SRP, consistency, atomicity, idempotency, no silent fallback, doc-first & plan-first, and isolation."
 ---
 
 # Alex Core Invariants Skill
@@ -35,7 +35,7 @@ Use this skill when reviewing architecture, refactors, data flow, persistence bo
 
 ## Do Not
 
-- Create a second canonical copy of the seven invariants in another file.
+- Create a second canonical copy of the eight invariants in another file.
 - Keep legacy write paths alive "just in case".
 - Hide primary-path failure with quiet fallback behavior.
 - Burn cycles dispatching guesses on a problem the official docs already solved.
